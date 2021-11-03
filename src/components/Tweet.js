@@ -4,34 +4,34 @@ import { formatTweet, formatDate } from "../utils/helpers";
 import { TiArrowBackOutline } from "react-icons/ti/index";
 import { TiHeartOutline } from "react-icons/ti/index";
 import { TiHeartFullOutline } from "react-icons/ti/index";
+import { handleToggleTweet } from "../actions/tweets";
 
 function Tweet(props) {
   const { tweet } = props;
 
   const toParent = (e, id) => {
-    e.preventDefault()
+    e.preventDefault();
     // todo
-  }
+  };
 
   const handleLike = (e) => {
     e.preventDefault();
-    // todo
+    const { dispatch, tweet, authedUser } = props;
+    dispatch(
+      handleToggleTweet({
+        id: tweet.id,
+        hasLiked: tweet.hasLiked,
+        authedUser,
+      })
+    );
   };
 
   if (tweet === null) {
     return <p>This tweet does not exist!</p>;
   }
 
-  const {
-    name,
-    avatar,
-    timestamp,
-    text,
-    hasLiked,
-    likes,
-    replies,
-    parent,
-  } = tweet;
+  const { name, avatar, timestamp, text, hasLiked, likes, replies, parent } =
+    tweet;
 
   return (
     <div className="tweet">
